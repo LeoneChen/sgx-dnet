@@ -1,3 +1,11 @@
+#if defined(__cplusplus)
+extern "C"{
+#endif
+void SGXSanLogEnter(const char *str);
+#if defined(__cplusplus)
+}
+#endif
+#define LogEnter SGXSanLogEnter
 /*
  * Created on Fri Feb 14 2020
  *
@@ -12,10 +20,12 @@
 #include <stdio.h>
 //#include <thread>
 
+/* 
 void printf(const char *fmt, ...)
 {
     PRINT_BLOCK();
 }
+ */
 
 void sgx_printf(const char *fmt, ...)
 {
@@ -24,16 +34,17 @@ void sgx_printf(const char *fmt, ...)
 
 void empty_ecall()
 {
+    LogEnter(__func__);
     sgx_printf("Inside empty ecall\n");
 }
 
-void fread(void *ptr, size_t size, size_t nmemb, int fp)
+void sgx_fread(void *ptr, size_t size, size_t nmemb, int fp)
 {
 
     ocall_fread(ptr, size, nmemb);
 }
 
-void fwrite(void *ptr, size_t size, size_t nmemb, int fp)
+void sgx_fwrite(void *ptr, size_t size, size_t nmemb, int fp)
 {
 
     ocall_fwrite(ptr, size, nmemb);

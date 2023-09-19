@@ -171,7 +171,7 @@ int initialize_enclave(void)
 }
 
 /* Application entry */
-int SGX_CDECL main(int argc, char *argv[])
+int SGX_CDECL __hidden_main(int argc, char *argv[])
 {
     (void)argc;
     (void)argv;
